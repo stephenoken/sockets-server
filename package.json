@@ -1,0 +1,29 @@
+{
+  "name": "sockets-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stephenoken/sockets-server.git"
+  },
+  "keywords": [
+    "sockets",
+    "TCD",
+    "NDS",
+    "Lab1"
+  ],
+  "author": "stephen o'kennedy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stephenoken/sockets-server/issues"
+  },
+  "homepage": "https://github.com/stephenoken/sockets-server#readme",
+  "dependencies": {
+    "express": "^4.13.3",
+    "sockets": "^0.4.2"
+  }
+}
