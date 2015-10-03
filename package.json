@@ -2,7 +2,7 @@
   "name": "sockets-server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server/index.js",
   "scripts": {
     "test": "mocha"
   },
@@ -24,6 +24,10 @@
   "homepage": "https://github.com/stephenoken/sockets-server#readme",
   "dependencies": {
     "express": "^4.13.3",
-    "sockets": "^0.4.2"
+    "ip": "^1.0.1",
+    "lodash": "^3.10.1",
+    "moment": "^2.10.6",
+    "socket.io": "^1.3.7",
+    "socket.io-client": "^1.3.7"
   }
 }

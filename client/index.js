@@ -18,17 +18,29 @@ var rl = readline.createInterface({
   output: process.stdout
 });
 
-var recursiveMessage = function () {
+function recursiveMessage() {
   rl.question("Send Message ", function(answer) {
-    if(answer ==="quit")
-      rl.close();
+    switch (answer) {
+      case "TERMINATE": terminate();
+        break;
+
+      default:
+
+    }
+    // if(answer ==="TERMINATE"){
+    //     socket.disconnect();
+    //     rl.close();
+    //     process.exit();
+    // }
     sendMessage(answer);
     console.log("Sent", answer);
     recursiveMessage();
   });
 }
 
+function terminate() {
+  socket.emit("terminate");
+  socket.disconnect();
+  process.exit();
+}
 recursiveMessage();
-// socket.on('event', function(data){
-// });
-// socket.on('disconnect', function(){});
