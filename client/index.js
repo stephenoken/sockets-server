@@ -1,17 +1,16 @@
 var io = require('socket.io-client');
 var readline = require('readline');
 var moment = require('moment');
+var _ = require('lodash');
 
 var socket = io.connect("http://localhost:3000");
 socket.on('welcome',function (data) {
   console.log(data);
 });
-function sendMessage(answer) {
-  socket.emit('chat message',{
-    message: answer,
-    time : moment().format('MMMM Do YYYY, h:mm:ss a')
-  });
-}
+
+socket.on('helo',function (data) {
+  console.log(data);
+});
 
 var rl = readline.createInterface({
   input: process.stdin,
@@ -19,28 +18,29 @@ var rl = readline.createInterface({
 });
 
 function recursiveMessage() {
-  rl.question("Send Message ", function(answer) {
-    switch (answer) {
-      case "TERMINATE": terminate();
+  rl.question("",function(response) {
+    var command = _.words(response,/[^ ]+/g);
+    switch (command[0]) {
+      case "KILL_SERVICE": terminate();
         break;
-
+      case "HELO": helo(command);
+        break;
       default:
 
     }
-    // if(answer ==="TERMINATE"){
-    //     socket.disconnect();
-    //     rl.close();
-    //     process.exit();
-    // }
-    sendMessage(answer);
-    console.log("Sent", answer);
     recursiveMessage();
   });
 }
 
 function terminate() {
   socket.emit("terminate");
-  socket.disconnect();
-  process.exit();
+}
+
+function helo(response) {
+  response.shift();
+  socket.emit('helo',{
+    message: response.join(' '),
+    time : moment().format('MMMM Do YYYY, h:mm:ss a')
+  });
 }
 recursiveMessage();

@@ -11,11 +11,23 @@ app.get('/',function (req,res) {
 });
 io.on('connection',function (socket) {
   // console.log("Number of Clients have joined " + io.eio.clientsCount);
-  socket.emit('welcome',"Hello Client " + socket.id);
+  socket.emit('welcome',"Hello Client " + socket.id +
+  "\nEnter a command:");
   console.log('a user connected');
 
-  socket.on('chat message', function(response){
+  socket.on('helo', function(response){
     console.log(response.time+' message: ' + response.message);
+    socket.emit('helo',
+    "HELO "+ response.message +
+    "\nIP:[" + ip.address() +
+    "]\nPORT:[" + port +
+    "]\n"
+    );
+  });
+
+  socket.on('terminate',function () {
+    console.log("Ending Service...");
+    process.exit();
   });
 
   socket.on('disconnect',function () {
@@ -28,7 +40,7 @@ io.on('disconnect',function () {
 });
 
 http.listen(port,function () {
-  var port = http.address().port;
+  // var port = http.address().port;
   // http.close();
   console.log('Server listening at http://%s:%s',ip.address(),port);
 });
